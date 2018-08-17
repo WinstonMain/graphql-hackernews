@@ -9,12 +9,16 @@ let links = [{
 let idCount = links.length
 const resolvers = {
   Query: {
-    info: () => `This is the API of a Hackernews Clone`,
-    feed: () => links,
+    link: (_, args) => {
+      const r = links[0]
+      console.log('r', r)
+       
+      return r// links[args.id]
+    }
   },
   Mutation: {
     // 2
-    post: (root, args) => {
+    updateLink: (root, args) => {
        const link = {
         id: `link-${idCount++}`,
         description: args.description,
@@ -22,7 +26,8 @@ const resolvers = {
       }
       links.push(link)
       return link
-    }
+    },
+    deleteLink: () => {}
   },
 }
 // 3
